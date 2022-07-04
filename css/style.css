@@ -135,11 +135,15 @@ div {
 
 .game-field {
     position: fixed;
-    right: 2%;
+    right: -62%;
     bottom: 7vw;
     height: 70%;
     width: 60%;
     background: rgba(0, 0, 0, .2);
+}
+
+.view_active .game-field {
+    right: 2%
 }
 
 .row {
@@ -210,7 +214,8 @@ div {
 }
 
 .game-girl {
-    width: calc(100% / 18);
+    /* width: calc(100% / 18); */
+    height: 18%;
     position: absolute;
     left: 0;
     bottom: 0;
@@ -250,8 +255,13 @@ div {
 
 .game-fire {
     position: absolute;
+    display: none;
     height: 90%;
     left: 50%;
     top: 40%;
     transform: translateX(-50%) translateY(-50%);
+}
+
+.active .game-fire {
+    display: block;
 }

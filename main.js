@@ -3,8 +3,8 @@ const str = new Storage({
     levels: [1]
 });
 
-// const vC = new ViewController(licenseView);
-const vC = new ViewController(gameView);
+const vC = new ViewController(licenseView);
+// const vC = new ViewController(gameView);
 
 str.data.balance = 500;
 
@@ -21,13 +21,13 @@ class Game {
         this.girlDirection = true;
     }
 
-    generatLevel() {
+    generatLevel(difficulty) {
 
         this.rowsWrapper.innerHTML = '';
         this.staircasesWrapper.innerHTML = '';
 
         for (let i = 0; i < 4; i++) {
-            this.rowsWrapper.insertAdjacentHTML(`beforeEnd`, `<div class="row row_${i}">${this.generateRow(i, 1, 4)}</div>`);
+            this.rowsWrapper.insertAdjacentHTML(`beforeEnd`, `<div class="row row_${i}">${this.generateRow(i, difficulty + 4 - i - 1, difficulty)}</div>`);
         }
 
         const game = this;
@@ -35,17 +35,24 @@ class Game {
         dqsa('.land-piece').addEventListener('click', function (e) {
             const row = +this.getAttribute('data-row');
             const column = +this.getAttribute('data-column');
+            const fired = +this.getAttribute('data-fired');
 
             if (row !== game.currentRow) { return; }
 
             if (game.locked) { return; }
+
+
             game.locked = true;
 
             game.moveGirl(column, () => {
-                game.addStaircase(row, column)
-                game.upGirl(row);
-                game.currentRow--;
-                game.locked = false;
+                this.activate();
+                if (!fired) {
+                    game.addStaircase(row, column);
+                    game.upGirl(row);
+                    game.currentRow--;
+                    game.locked = false;
+                } else {
+                }
             });
 
         })
@@ -112,4 +119,10 @@ class Game {
 }
 
 const game = new Game();
-game.generatLevel();
+
+dqsa('[data-level]').addEventListener('click', function()  {
+    if (!this.classList.contains('active')) { return; }
+    const defficulty = +this.getAttribute('data-level');
+    game.generatLevel([0, 3, 5, 6][defficulty]);
+    vC.setView(gameView);
+})
