@@ -10,11 +10,13 @@
 const modulesLoader = new ModulesLoader();
 modulesLoader
     .loadModule('log')
+    .loadModule('random')
+    .loadModule('dom')
     .loadModule('parallax')
     .loadModule('background')
     .loadModule('view')
     .loadModule('storage')
-    .loadModule('nicknames')
+    // .loadModule('nicknames')
     .onload([
         './background.js',
         './views.js',

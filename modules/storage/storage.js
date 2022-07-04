@@ -22,7 +22,16 @@ class Storage {
             }
         });
 
-        Object.entries(events).forEach(([k, v]) => v(this.data[k]));
+        this.data = new Proxy(this.data, {
+            set: (target, key, value) => {
+                localStorage.setItem(`STORAGE__${key}`, JSON.stringify(value));
+                if (this.events[key]) {
+                    this.events[key](value);
+                }
+            }
+        })
+
+        Object.entries(events).forEach(([key, lstener]) => lstener(this.data[key]));
     }
 
     get(key) {
