@@ -75,6 +75,7 @@ class Game {
                 }
 
             }
+            this.activate();
 
             game.locked = true;
 

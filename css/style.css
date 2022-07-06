@@ -22,7 +22,12 @@ div {
     bottom: -4vw;
     left: -100%;
     overflow: auto;
-    padding: 4% 4% 5vw 5vw;
+    padding: 5% 5% 5vw 5vw;
+}
+
+.license-content {
+    height: 100%;
+    overflow: auto;
 }
 
 .view_active .license-block {
@@ -173,6 +178,13 @@ div {
     font-size: 0px;
 }
 
+.land-piece.active {
+    outline: 4px solid #5eadd2;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 2;
+}
+
 .row-coef {
     width: calc(100% / 18);
 }
@@ -218,6 +230,7 @@ div {
     position: absolute;
     left: 0;
     bottom: 0;
+    z-index: 8;
     transition: left 400ms linear, bottom 400ms linear;
 }
 
@@ -230,6 +243,7 @@ div {
     position: absolute;
     width: calc(100% / 18);
     height: 25%;
+    z-index: 4;
 }
 
 .game-staircase_3 {
