@@ -1,14 +1,34 @@
+let canPlayMsuic = false;
 const str = new Storage({
-    balance: 500,
-    levels: [1]
+    balance: 5000,
+    levels: 1,
+    bet: 50,
+    music: true
+}, {
+    bet: (value) => {
+        betEl.innerHTML = value;
+    },
+    balance: (value) => {
+        dqsa('.balance').setInnerHTML(value);
+    },
+    levels: (value) => {
+        for (let i = 1; i <= value; i++) {
+            dqsa(`[data-level="${i}"]`).activate();
+        }
+    },
+    music: (value) => {
+
+    }
 });
 
 const vC = new ViewController(licenseView);
-// const vC = new ViewController(gameView);
+// const vC = new ViewController(menuView);
 
-str.data.balance = 500;
-
-accceptLiense.onclick = () => vC.setView(menuView);
+accceptLiense.onclick = () => {
+    if (str.data.music) { mPlay(); } else { mPause() }
+    canPlayMsuic = true;
+    vC.setView(menuView)
+};
 
 class Game {
     constructor() {
@@ -22,12 +42,20 @@ class Game {
     }
 
     generatLevel(difficulty) {
-
+        this.difficulty = difficulty;
         this.rowsWrapper.innerHTML = '';
         this.staircasesWrapper.innerHTML = '';
+        this.currentColumn = 0;
+        this.currentRow = 3;
+
+        this.moveGirl(0, () => {
+            this.upGirl(4);
+            this.girlDirection = true;
+            this.updateGirlDirection();
+        })
 
         for (let i = 0; i < 4; i++) {
-            this.rowsWrapper.insertAdjacentHTML(`beforeEnd`, `<div class="row row_${i}">${this.generateRow(i, difficulty + 4 - i - 1, difficulty)}</div>`);
+            this.rowsWrapper.insertAdjacentHTML(`beforeEnd`, `<div class="row row_${i}">${this.generateRow(i, this.getWinCoef(i), difficulty)}</div>`);
         }
 
         const game = this;
@@ -38,9 +66,15 @@ class Game {
             const fired = +this.getAttribute('data-fired');
 
             if (row !== game.currentRow) { return; }
+            if (game.locked) {
+                const start = document.querySelector('.game-start');
+                if (!start.classList.contains('game-start_active')) {
+                    start.dispatchEvent(new Event('click'))
+                } else {
+                    return;
+                }
 
-            if (game.locked) { return; }
-
+            }
 
             game.locked = true;
 
@@ -49,13 +83,47 @@ class Game {
                 if (!fired) {
                     game.addStaircase(row, column);
                     game.upGirl(row);
+
                     game.currentRow--;
-                    game.locked = false;
+
+                    if (game.currentRow === -1) {
+                        setTimeout(() => {
+                            game.moveGirl(16, () => {
+                                game.locked = false;
+                                game.endRound();
+                                str.data.levels++;
+                            });
+                        }, 350);
+                    } else {
+                        game.locked = false;
+                    }
                 } else {
+                    game.endRound();
+
                 }
             });
 
         })
+    }
+
+    endRound() {
+        winEl.activate();
+        winValEl.innerHTML = game.getWinSum();
+        betsEl.classList.add('disabled');
+        str.data.balance = str.data.balance + game.getWinSum();
+        if (str.data.balance < 50) {
+            str.data.balance = 500;
+        }
+    }
+
+    getWinCoef(row) {
+        if (row === 4) { return 0; }
+        return this.difficulty + (3 - row);
+    }
+
+    getWinSum() {
+        console.log(this.currentRow + 1);
+        return this.getWinCoef(this.currentRow + 1) * str.data.bet;
     }
 
     addStaircase(row, column) {
@@ -118,11 +186,68 @@ class Game {
     }
 }
 
-const game = new Game();
+var game = new Game();
 
-dqsa('[data-level]').addEventListener('click', function()  {
+game.locked = true;
+
+dqsa('[data-level]').addEventListener('click', function () {
+    if (!game.locked) { return; }
     if (!this.classList.contains('active')) { return; }
-    const defficulty = +this.getAttribute('data-level');
-    game.generatLevel([0, 3, 5, 6][defficulty]);
+    const difficulty = +this.getAttribute('data-level');
+    game.generatLevel([0, 3, 5, 6][difficulty]);
+
+    dqsa('.game-level-section .level').forEach(el => {
+        el.classList.add('grey');
+    });
+
+    dqsa(`[data-level="${difficulty}"]`).forEach(el => {
+        el.classList.remove('grey');
+    })
+
     vC.setView(gameView);
 })
+
+dqsa('.arr_l').addEventListener('click', () => {
+    if (!game.locked) { return; }
+    if (str.data.bet > 50) { str.data.bet -= 50; }
+})
+dqsa('.arr_r').addEventListener('click', () => {
+    if (!game.locked) { return; }
+    if (str.data.bet + 50 > str.data.balance) { return; }
+    str.data.bet += 50;
+})
+
+dqsa('.game-start').addEventListener('click', function () {
+    if (!game.locked) { return; }
+    str.data.balance -= str.data.bet;
+    game.locked = false;
+    this.classList.add('game-start_active');
+})
+
+retryEl.onclick = () => {
+    game.locked = true;
+    game.generatLevel(game.difficulty);
+    document.querySelector('.game-start').classList.remove('game-start_active');
+    betsEl.classList.remove('disabled');
+    winEl.deactivate();
+}
+
+
+dqsa('.home').addEventListener('click', () => {
+    vC.setView(menuView);
+})
+
+
+function mPlay() {
+    musicEl.play();
+    str.data.music = true;
+    playEl.style.display = 'none';
+    pauseEl.style.display = 'block';
+}
+
+function mPause() {
+    musicEl.pause();
+    str.data.music = false;
+    playEl.style.display = 'block';
+    pauseEl.style.display = 'none';
+}

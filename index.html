@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
-    <link href="//db.onlinewebfonts.com/c/c03740f2ffb689fef4bbb9c26116c4c1?family=PariMatchRegular" rel="stylesheet" type="text/css"/>
+    <link href="//db.onlinewebfonts.com/c/c03740f2ffb689fef4bbb9c26116c4c1?family=PariMatchRegular" rel="stylesheet"
+        type="text/css" />
     <link rel="stylesheet" href="./css/style.css">
     <title>Cup Xo</title>
 </head>
@@ -88,8 +89,9 @@
     </div>
 
     <div class="view view_menu">
+        <img src="./img/girl.png" alt="" class="menu-girl">
         <div class="level-select transition-top flex-center-row">
-            <div class="level active" data-level="1">
+            <div class="level" data-level="1">
                 <div class="level-lock"></div>
                 1
             </div>
@@ -101,21 +103,69 @@
                 <div class="level-lock"></div>
                 3
             </div>
-
         </div>
         <img src="./img/trees.png" class="transition-top tress_menu">
     </div>
 
     <div class="view view_game">
+        <div class="bets-wrapper " id="betsEl">
+            <div class="range">
+                <img src="./img/arr_l.png" class="arr arr_l" alt="">
+                <div class="range__value">
+                    <img src="./img/bg_range.png" alt="">
+                    <div class="range__v">
+                        <img src="./img/gold.png" alt="">
+                        <span id="betEl">-</span>
+                    </div>
+                </div>
+                <img src="./img/arr_r.png" class="arr arr_r" alt="">
+            </div>
+        </div>
+        <div class="win-wrapper" id="winEl">
+            <div class="gold">
+                <img src="./img/gold.png" alt="">
+                <span id="winValEl">-</span>
+            </div>
+            <img src="./img/retry.png" alt="" id="retryEl">
+        </div>
+
+        <div class="game-bar">
+            <img src="./img/btn_home.png" class="home" alt="">
+            <img src="./img/btn_music.png" id="playEl" onclick="mPlay()">
+            <img src="./img/btn_music_off.png" id="pauseEl" onclick="mPause()">
+            <div class="range__value">
+                <img src="./img/bg_range.png" alt="">
+                <div class="range__v">
+                    <img src="./img/gold.png" alt="">
+                    <span class="balance">-</span>
+                </div>
+            </div>
+        </div>
+        <img src="./img/start_long.png" class="game-start" alt="">
         <div class="game-field trasnition-right">
             <div class="game-field__rows">
-
             </div>
             <div class="staircases"></div>
+            <img src="./img/planet.png" alt="" class="planet">
             <img src="./img/girl.png" alt="girl" class="game-girl">
-        </div>        
-    </div>
+        </div>
 
+        <div class="game-level-section  transition-top flex-center-row">
+            <div class="level grey" data-level="1">
+                <div class="level-lock"></div>
+                1
+            </div>
+            <div class="level grey" data-level="2">
+                <div class="level-lock"></div>
+                2
+            </div>
+            <div class="level grey" data-level="3">
+                <div class="level-lock"></div>
+                3
+            </div>
+        </div>
+    </div>
+    <audio src="./music.mp3" id="musicEl"></audio>
     <script src="./modules/modules.js"></script>
     <script src="./init.js"></script>
 

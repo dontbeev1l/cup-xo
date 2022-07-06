@@ -29,5 +29,10 @@ const gameView = new View('game',
         land.activate();
     },
     () => {
+        game.locked = true;
+        game.generatLevel(game.difficulty);
+        document.querySelector('.game-start').classList.remove('game-start_active');
+        betsEl.classList.remove('disabled');
+        winEl.deactivate();
     }
 );

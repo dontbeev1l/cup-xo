@@ -1,0 +1,7 @@
+- [ ] Fone music 
+- [-] Fullscreen mode
+- [x] Bottom bar (home + balance)
+- [ ] In Game level bar (right bottom)
+- [x] Level unclock
+- [ ] win planet 
+- [ ] home and license girl 

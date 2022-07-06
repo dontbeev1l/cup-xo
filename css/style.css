@@ -139,7 +139,6 @@ div {
     bottom: 7vw;
     height: 70%;
     width: 60%;
-    background: rgba(0, 0, 0, .2);
 }
 
 .view_active .game-field {
@@ -264,4 +263,202 @@ div {
 
 .active .game-fire {
     display: block;
+}
+
+
+.range {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.range__value {
+    position: relative;
+}
+
+.range__v {
+    position: absolute;
+    left: 50%;
+    top: 44%;
+    transform: translateX(-50%) translateY(-50%);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 18px;
+    line-height: 18px;
+}
+
+.range__value {
+    margin: 0 8px;
+}
+
+.arr {
+    width: 15%;
+}
+
+.range__value>img {
+    width: 100%;
+}
+
+.range__value {
+    flex-grow: 1;
+}
+
+.range__v img {
+    margin-right: 8px;
+    height: 16px
+}
+
+.bets-wrapper {
+    background-image: url('../img/wood.png');
+    background-size: 100% 100%;
+    width: 30%;
+    position: fixed;
+    height: 60vh;
+    left: -30%;
+    bottom: 25vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding-left: calc(20px + 2%);
+    padding-right: 3%;
+    transition: left 300ms ease;
+}
+
+.view_active .bets-wrapper {
+    left: -20px;
+}
+
+.view_active .bets-wrapper.disabled {
+    left: -30%;
+}
+
+.game-start {
+    position: fixed;
+    bottom: -100%;
+    width: 10%;
+    left: calc(10% - 20px);
+    transition: opacity 300ms ease;
+    transition: bottom 300ms ease;
+}
+
+.view_active .game-start {
+    bottom: 7.4vw;
+}
+
+.game-start_active {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.win-wrapper {
+    background-image: url('../img/win_screen.png');
+    background-size: 100% 100%;
+    width: 30%;
+    position: fixed;
+    transition: left 300ms ease;
+    left: -30%;
+    height: 34vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 5%;
+    transition: left 300ms ease;
+    top: 45%;
+    transform: translateY(-50%);
+}
+
+.win-wrapper>img {
+    height: 72px;
+}
+
+.win-wrapper.active {
+    left: 5%;
+}
+
+.gold>img {
+    height: 14px;
+    margin-right: 6px;
+    ;
+}
+
+.gold {
+    color: #fff;
+    margin-bottom: 30px;
+    font-size: 20px;
+    text-shadow: -1px -1px 0 rgba(159, 74, 30, 1), 1px -1px 0 rgba(159, 74, 30, 1), -1px 1px 0 rgba(159, 74, 30, 1), 1px 1px 0 rgba(159, 74, 30, 1);
+}
+
+.game-bar {
+    position: fixed;
+    left: 8px;
+    bottom: -60px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    transition: bottom 300ms ease;
+}
+
+
+.view_active .game-bar {
+    bottom: 8px;
+    z-index: 2;
+}
+
+.game-bar>img {
+    height: 52px;
+}
+
+.game-bar .range__value>img {
+    height: 52px;
+}
+
+.home {
+    margin-right: 4px;
+}
+
+.game-level-section {
+    position: fixed;
+    right: 8px;
+    bottom: -48px;
+    transition: bottom 300ms ease !important;
+}
+
+.view_active .game-level-section {
+    bottom: 8px;
+}
+
+.game-level-section .level {
+    width: 42px;
+    height: 42px;
+    padding-bottom: 6px;
+}
+
+.game-level-section .level.grey {
+    background-image: url('../img/level_inactive.png');
+}
+
+.planet {
+    position: absolute;
+    left: calc(calc(100% / 18) * 17);
+    width: calc(100% / 17);
+    transform: translateY(-110%);
+}
+
+.menu-girl {
+    bottom: 7.5vw;
+    height: 69vh;
+    position: fixed;
+    left: -100%;
+    transition: left 300ms ease;
+}
+
+.view_active .menu-girl {
+    left: 10vw;
 }

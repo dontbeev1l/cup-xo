@@ -16,7 +16,8 @@ class Storage {
                 return;
             }
             try {
-                this.data[key] = JSON.parse(storageValue)
+                console.log('ssss', storageValue);
+                this.set(key, JSON.parse(storageValue));
             } catch (e) {
                 this.set(key, structure[key]);
             }
@@ -24,10 +25,13 @@ class Storage {
 
         this.data = new Proxy(this.data, {
             set: (target, key, value) => {
+                console.log(key, value);
+                target[key] = value;
                 localStorage.setItem(`STORAGE__${key}`, JSON.stringify(value));
                 if (this.events[key]) {
                     this.events[key](value);
                 }
+                return value;
             }
         })
 
@@ -44,5 +48,6 @@ class Storage {
         if (this.events[key]) {
             this.events[key](value);
         }
+        return value;
     }
 }
