@@ -178,7 +178,7 @@ div {
     font-size: 0px;
 }
 
-.land-piece.active {
+.land-piece.hilight {
     outline: 4px solid #5eadd2;
     box-sizing: border-box;
     position: relative;

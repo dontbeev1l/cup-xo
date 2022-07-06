@@ -75,12 +75,13 @@ class Game {
                 }
 
             }
-            this.activate();
+            this.classList.add('hilight');
 
             game.locked = true;
 
             game.moveGirl(column, () => {
                 this.activate();
+                Array.from(this.parentElement.children).forEach(e => e.activate());
                 if (!fired) {
                     game.addStaircase(row, column);
                     game.upGirl(row);
