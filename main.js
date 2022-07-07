@@ -110,6 +110,12 @@ class Game {
 
     endRound() {
         winEl.activate();
+        if(game.getWinSum() == 0) {
+            winEl.classList.add('lose');
+        } else {
+            winEl.classList.remove('lose');
+
+        }
         winValEl.innerHTML = game.getWinSum();
         betsEl.classList.add('disabled');
         str.data.balance = str.data.balance + game.getWinSum();

@@ -387,6 +387,11 @@ div {
     transform: translateY(-50%);
 }
 
+.lose {
+    
+    background-image: url('../img/lose-sreen.png');
+}
+
 .win-wrapper>img {
     height: 72px;
 }
